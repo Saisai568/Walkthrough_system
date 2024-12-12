@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
+    $nickname = trim($_POST['nickname']);
 
     // Validate inputs
     if (empty($username) || empty($email) || empty($password)) {
@@ -48,12 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Hash the password
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+    // $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
     // Insert the new user
-    $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO user (username, email, password,nickname) VALUES (?, ?, ?, ?)";
     $stmt = $mydb->prepare($sql);
-    $stmt->bind_param("sss", $username, $email, $password);
+    $stmt->bind_param("ssss", $username, $email, $password, $nickname);
 
     if ($stmt->execute()) {
         echo "Registration successful! You can now <a href='register_login.php'>log in</a>.";

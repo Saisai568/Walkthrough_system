@@ -1,22 +1,22 @@
 <?php
-// 获取 POST 传入的 JSON 数据
+// 獲取 POST 傳入的 JSON 資料
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
-// 检查传入的数据是否包含有效的小队成员
+// 檢查傳入的資料是否包含有效的小隊成員
 if (isset($data['team']) && is_array($data['team']) && isset($data['enemyTeam']) && is_array($data['enemyTeam'])) {
-    // 获取我方和敌方队伍的成员
+    // 獲取我方和敵方隊伍的成員
     $my_team = $data['team'];
     $enemy_team = $data['enemyTeam'];
 
-    // 输出我方和敌方的成员
-    echo "我方成员是：" . implode(", ", $my_team) . "<br>";
-    echo "敌方成员是：" . implode(", ", $enemy_team);
+    // 輸出我方和敵方的成員
+    echo "\n我方成員是：" . implode(", ", $my_team);
+    echo "\n敵方成員是：" . implode(", ", $enemy_team);
 
-    // 重定向到 index.php 页面
+    // 重定向到 index.php 頁面
     header("index.php");
-    exit; // 确保脚本结束执行，避免后续的输出
+    exit; // 確保指令碼結束執行，避免後續的輸出
 } else {
-    echo "提交的数据格式错误！";
+    echo "提交的資料格式錯誤！";
 }
 ?>

@@ -92,14 +92,13 @@
             <button herf="logout.php">登出</button> 
         </div>   -->
     </nav>
-    <!-- 上古神獸 -->
-    <!-- <nav>
+    <!-- 上古神獸 
+    <nav>
         <a href="#">首頁</a>
         <a href="#">用戶管理</a>
         <a href="#">報表</a>
         <a href="#">設定</a>
-    </nav> 
-    -->
+    </nav> -->
     <main>
         <div>
             <div class="card" >
