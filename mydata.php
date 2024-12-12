@@ -1,51 +1,37 @@
 <?php
-header("Content-Type: text/html; charset=utf-8");
-session_start();
+    require "load.php";
+    session_start();
 
-$db_server = "localhost";
-$db_user = "root";
-$db_password = "";
-$db_name = "Walkthrough_system";
+    // Check if the user is logged in
+    if (!isset($_SESSION['username'])) {
+        header("Location: register_login.php");
+        exit;
+    }
 
-$mydb = new mysqli($db_server, $db_user, $db_password, $db_name);
+    // Fetch user data
+    $username = $_SESSION['username'];
+    $sql = "SELECT * FROM user WHERE username = ?";
+    $stmt = $mydb->prepare($sql);
+    if (!$stmt) {
+        die("SQL 預處理失敗: " . $mydb->error);
+    }
 
-if ($mydb->connect_error) {
-    die("連接失敗: " . $mydb->connect_error);
-}
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-if (!$mydb->set_charset("utf8mb4")) {
-    die("設置字體失敗: " . $mydb->error);
-}
-// Check if the user is logged in
-if (!isset($_SESSION['username'])) {
-    header("Location: register_login.php");
-    exit;
-}
+    if ($result->num_rows === 0) {
+        echo "找不到用戶。";
+        
+        $stmt->close();
+        $mydb->close();
+        exit;
+    }
 
-// Fetch user data
-$username = $_SESSION['username'];
-$sql = "SELECT * FROM user WHERE username = ?";
-$stmt = $mydb->prepare($sql);
-if (!$stmt) {
-    die("SQL 預處理失敗: " . $mydb->error);
-}
+    $user = $result->fetch_assoc();
 
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$result = $stmt->get_result();
-
-if ($result->num_rows === 0) {
-    echo "找不到用戶。";
-    
     $stmt->close();
     $mydb->close();
-    exit;
-}
-
-$user = $result->fetch_assoc();
-
-$stmt->close();
-$mydb->close();
 ?>
 
 <!DOCTYPE html>
