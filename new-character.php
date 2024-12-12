@@ -63,7 +63,7 @@
 </head>
 <body>
     <div class="container" id="form-container">
-        <div id="register-form">
+        <div id="newcharacter-form">
             <h2>新增角色</h2>
             <form action="add_character.php" method="POST">
                 <label for="name">角色名稱：<input type="text" id="name" name="CharterName" maxlength="20" required></label>
@@ -84,10 +84,43 @@
                 
                 <label for="occupation">職業：<input type="text" id="occupation" name="Occupation" maxlength="20" required></label>
 
-                <button type="submit">新增角色</button>
+                <button type="submit">新增</button>
+                <div class="switch">
+                <a href="#" onclick="switchToItem()">新增道具</a>
+                </div>
                 <a href="index.php" style='text-align:center'>回首頁</a>
             </form>
         </div>
+        <div id="newitem-form"  style="display: none;">
+            <h2>新增道具</h2>
+            <form action="add_item.php" method="POST">
+                <label for="name">道具名稱：<input type="text" id="name" name="ItemName" maxlength="20" required></label>
+                <label for="occaption" required>可用職業：</label>
+                    <select id="occaption" name="Occaption">
+                        <option value="戰士">戰士</option>
+                        <option value="法師">法師</option>
+                        <option value="坦克">坦克</option>
+                        <option value="刺客">刺客</option>
+                    </select>
+                <label for="proper">道具屬性：<input type="text" id="proper" name="ItemProper" maxlength="20" required></label>
+                <button type="submit">新增</button>
+            </form>
+            <div class="switch">
+                <a href="#" onclick="switchToCharacter()">新增角色</a>
+            </div>
+            <a href="index.php" style='text-align:center'>回首頁</a>
+        </div>
     </div>
+    <script>
+        function switchToItem() {
+            document.getElementById('newcharacter-form').style.display = 'none';
+            document.getElementById('newitem-form').style.display = 'block';
+        }
+
+        function switchToCharacter() {
+            document.getElementById('newitem-form').style.display = 'none';
+            document.getElementById('newcharacter-form').style.display = 'block';
+        }
+    </script>
 </body>
 </html>

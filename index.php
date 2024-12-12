@@ -92,13 +92,6 @@
             <button herf="logout.php">登出</button> 
         </div>   -->
     </nav>
-    <!-- 上古神獸 
-    <nav>
-        <a href="#">首頁</a>
-        <a href="#">用戶管理</a>
-        <a href="#">報表</a>
-        <a href="#">設定</a>
-    </nav> -->
     <main>
         <div>
             <div class="card" >
@@ -114,23 +107,23 @@
             <div class="card">
                 <img src="img/warrior.png"/>
                 <h3>角色登場率</h3>
-                <a href="mydata.php">進入</a>
+                <a href="characterpercent.php">進入</a>
             </div>
         </div>
         <div>
             <div class="card">
                 <img src="img/magic-wand.png"/>
                 <h3>道具介紹</h3>
-                <a href="mydata.php">進入</a>
+                <a href="itemintro.php">進入</a>
             </div>
             <div class="card">
                 <img src="img/numbers.png"/>
                 <h3>角色數值計算器</h3>
-                <a href="mydata.php">進入</a>
+                <a href="charactercal.php">進入</a>
             </div>
             <div class="card">
                 <img src="img/witch.png"/>
-                <h3>新增角色</h3>
+                <h3>新增角色/道具</h3>
                 <a href="new-character.php">進入</a>
             </div>
         </div>
