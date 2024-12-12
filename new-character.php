@@ -65,7 +65,7 @@
     <div class="container" id="form-container">
         <div id="register-form">
             <h2>新增角色</h2>
-            <form action="add_charater.php" method="POST">
+            <form action="add_character.php" method="POST">
                 <label for="name">角色名稱：<input type="text" id="name" name="CharterName" maxlength="20" required></label>
                 
                 <label for="lv">等級：<input type="number" id="lv" name="LV" required></label>
@@ -85,28 +85,9 @@
                 <label for="occupation">職業：<input type="text" id="occupation" name="Occupation" maxlength="20" required></label>
 
                 <button type="submit">新增角色</button>
+                <a href="index.php" style='text-align:center'>回首頁</a>
             </form>
-            <!-- <form action="add_charater.php" method="POST">
-                <input type="text" name="username" placeholder="用戶名" required>
-                <input type="email" name="email" placeholder="電子郵件" required>
-                <input type="password" name="password" placeholder="密碼" required>
-                <input type="nickname" name="nickname" placeholder="暱稱">
-                <button type="submit">註冊</button>
-            </form> -->
-            
         </div>
     </div>
-
-    <script>
-        function switchToLogin() {
-            document.getElementById('register-form').style.display = 'none';
-            document.getElementById('login-form').style.display = 'block';
-        }
-
-        function switchToRegister() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('register-form').style.display = 'block';
-        }
-    </script>
 </body>
 </html>

@@ -62,11 +62,20 @@
     </style>
 </head>
 <body>
-    <div class="home-link">
-        <a href="index.php">回首頁</a>
-    </div>
     <div class="container" id="form-container">
-        <div id="register-form">
+        <div id="login-form">
+            <h2>登入</h2>
+            <form action="login.php" method="POST">
+                <input type="text" name="username" placeholder="用戶名" required>
+                <input type="password" name="password" placeholder="密碼" required>
+                <button type="submit">登入</button>
+            </form>
+            <a href="index.php"回首頁</a>
+            <div class="switch">
+                尚未註冊？<a href="#" onclick="switchToRegister()">註冊</a>
+            </div>
+        </div>
+        <div id="register-form"  style="display: none;">
             <h2>註冊</h2>
             <form action="register.php" method="POST">
                 <input type="text" name="username" placeholder="用戶名" required>
@@ -75,21 +84,12 @@
                 <input type="nickname" name="nickname" placeholder="暱稱">
                 <button type="submit">註冊</button>
             </form>
+            <a href="index.php">回首頁</a>
             <div class="switch">
                 已有帳戶？<a href="#" onclick="switchToLogin()">登入</a>
             </div>
         </div>
-        <div id="login-form" style="display: none;">
-            <h2>登入</h2>
-            <form action="login.php" method="POST">
-                <input type="text" name="username" placeholder="用戶名" required>
-                <input type="password" name="password" placeholder="密碼" required>
-                <button type="submit">登入</button>
-            </form>
-            <div class="switch">
-                尚未註冊？<a href="#" onclick="switchToRegister()">註冊</a>
-            </div>
-        </div>
+        
     </div>
 
     <script>
