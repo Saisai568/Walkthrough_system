@@ -131,11 +131,12 @@ try {
           <div id="characters">
               <?php
               $count = 0;
-              foreach ($characters as $character) {
-                  if ($count % 5 === 0) echo '<div class="character-row">';
-                  echo "<div class='character' draggable='true' id='$character'>$character</div>";
-                  if ($count % 5 === 4) echo '</div>';
-                  $count++;
+              foreach ($characters as $index => $character) {
+                $characterId = $charactersid[$index];
+                if ($count % 5 === 0) echo '<div class="character-row">';
+                echo "<div class='character' draggable='true' id='$characterId'>$character</div>";
+                if ($count % 5 === 4) echo '</div>';
+                $count++;
               }
               if ($count % 5 !== 0) echo '</div>'; // Close last row if not complete
               ?>
@@ -150,11 +151,12 @@ try {
         <div id="enemy-characters">
               <?php
               $count = 0;
-              foreach ($characters as $character) {
-                  if ($count % 5 === 0) echo '<div class="character-row">';
-                  echo "<div class='character' draggable='true' id='$character'>$character</div>";
-                  if ($count % 5 === 4) echo '</div>';
-                  $count++;
+              foreach ($characters as $index => $character) {
+                $characterId = $charactersid[$index];
+                if ($count % 5 === 0) echo '<div class="character-row">';
+                echo "<div class='character' draggable='true' id='$characterId'>$character</div>";
+                if ($count % 5 === 4) echo '</div>';
+                $count++;
               }
               if ($count % 5 !== 0) echo '</div>'; // Close last row if not complete
               ?>
