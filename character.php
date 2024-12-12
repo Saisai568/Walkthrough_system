@@ -1,3 +1,36 @@
+<?php
+header("Content-Type: text/html; charset=utf-8");
+
+
+$db_server = "localhost";
+$db_user = "root";
+$db_password = "";
+$db_name = "Walkthrough_system";
+
+$mydb = new mysqli($db_server, $db_user, $db_password, $db_name);
+
+if ($mydb->connect_error) {
+    die("連接失敗 " . $mydb->connect_error);
+}
+
+if (!$mydb->set_charset("utf8mb4")) {
+    die("設置字體失敗: " . $mydb->error);
+}
+
+
+try {
+    $pdo = new PDO("mysql:host=$db_server;dbname=$db_name", $db_user, $db_password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Fetch characters
+    $stmt = $pdo->query("SELECT CharterName FROM charter");
+    $characters = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    $stmt = $pdo->query("SELECT CharterId  FROM charter");
+    $charactersid = $stmt->fetchAll(PDO::FETCH_COLUMN);
+} catch (PDOException $e) {
+    die("Database error: " . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +43,10 @@
       margin: 0;
       padding: 0;
     }
-
     body {
+      margin: 0; /* 移除默認的邊距 */
+      border: 5px solid black; /* 設置邊界的寬度和顏色 */
+      padding: 10px; /* 給內容加內邊距，避免內容緊貼邊框 */
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -91,165 +126,46 @@
 </head>
 <body>
   <div class="container">
-    <!-- 我方隊伍 -->
     <div class="team-section">
-      <div class="title">我方(進攻)隊伍</div>
-      <div id="characters">
-      <div class="character-row">
-        <div class="character" draggable="true" id="艾德華">艾德華</div>
-        <div class="character" draggable="true" id="阿爾法">阿爾法</div>
-        <div class="character" draggable="true" id="龍傲天">龍傲天</div>
-        <div class="character" draggable="true" id="天行者">天行者</div>
-        <div class="character" draggable="true" id="雪莉">雪莉</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="烈焰狼">烈焰狼</div>
-        <div class="character" draggable="true" id="神秘術士">神秘術士</div>
-        <div class="character" draggable="true" id="劍聖">劍聖</div>
-        <div class="character" draggable="true" id="夜刃">夜刃</div>
-        <div class="character" draggable="true" id="雷霆女王">雷霆女王</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="暗影大師">暗影大師</div>
-        <div class="character" draggable="true" id="晨曦守護者">晨曦守護者</div>
-        <div class="character" draggable="true" id="冰封獵人">冰封獵人</div>
-        <div class="character" draggable="true" id="秘術弓箭手">秘術弓箭手</div>
-        <div class="character" draggable="true" id="天使之羽">天使之羽</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="黑魔導士">黑魔導士</div>
-        <div class="character" draggable="true" id="鋼鐵雄心">鋼鐵雄心</div>
-        <div class="character" draggable="true" id="聖光女武神">聖光女武神</div>
-        <div class="character" draggable="true" id="月光劍客">月光劍客</div>
-        <div class="character" draggable="true" id="烈火戰士">烈火戰士</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="碧海忍者">碧海忍者</div>
-        <div class="character" draggable="true" id="破碎者">破碎者</div>
-        <div class="character" draggable="true" id="魔法獵人">魔法獵人</div>
-        <div class="character" draggable="true" id="巫師領主">巫師領主</div>
-        <div class="character" draggable="true" id="霜火焰使">霜火焰使</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="神箭手">神箭手</div>
-        <div class="character" draggable="true" id="風暴之靈">風暴之靈</div>
-        <div class="character" draggable="true" id="戰歌領主">戰歌領主</div>
-        <div class="character" draggable="true" id="白狼">白狼</div>
-        <div class="character" draggable="true" id="天籟歌者">天籟歌者</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="破碎之心">破碎之心</div>
-        <div class="character" draggable="true" id="龍之勇者">龍之勇者</div>
-        <div class="character" draggable="true" id="魅影刺客">魅影刺客</div>
-        <div class="character" draggable="true" id="幻影之刃">幻影之刃</div>
-        <div class="character" draggable="true" id="雪狼領主">雪狼領主</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="疾風刺客">疾風刺客</div>
-        <div class="character" draggable="true" id="黑翼天使">黑翼天使</div>
-        <div class="character" draggable="true" id="暗月教主">暗月教主</div>
-        <div class="character" draggable="true" id="雷霆法師">雷霆法師</div>
-        <div class="character" draggable="true" id="銀月弓箭手">銀月弓箭手</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="星光守衛">星光守衛</div>
-        <div class="character" draggable="true" id="極寒法王">極寒法王</div>
-        <div class="character" draggable="true" id="燃燒之魂">燃燒之魂</div>
-        <div class="character" draggable="true" id="神龍武士">神龍武士</div>
-        <div class="character" draggable="true" id="元素使者">元素使者</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="火焰刺客">火焰刺客</div>
-        <div class="character" draggable="true" id="風之舞者">風之舞者</div>
-        <div class="character" draggable="true" id="暗黑騎士">暗黑騎士</div>
-        <div class="character" draggable="true" id="雪影魔女">雪影魔女</div>
-        <div class="character" draggable="true" id="雷霆巨獸">雷霆巨獸</div>
-    </div>
+          <div class="title">我方(進攻)隊伍</div>
+          <div id="characters">
+              <?php
+              $count = 0;
+              foreach ($characters as $character) {
+                  if ($count % 5 === 0) echo '<div class="character-row">';
+                  echo "<div class='character' draggable='true' id='$character'>$character</div>";
+                  if ($count % 5 === 4) echo '</div>';
+                  $count++;
+              }
+              if ($count % 5 !== 0) echo '</div>'; // Close last row if not complete
+              ?>
+          </div>
+          <p style="border-bottom: 2px dotted; text-align: center;">拖曳角色到這裡來組成小隊</p>
+          <div id="team"></div>
       </div>
-      <p style="border-bottom: 2px dotted; text-align: center;">拖曳角色到這裡來組成小隊</p>
-      <div id="team"></div>
-    </div>
     
     <!-- 敵方隊伍 -->
     <div class="team-section">
       <div class="title">敵方(防守)隊伍</div>
-      <div id="enemy-characters">
-      <div class="character-row">
-        <div class="character" draggable="true" id="艾德華">艾德華</div>
-        <div class="character" draggable="true" id="阿爾法">阿爾法</div>
-        <div class="character" draggable="true" id="龍傲天">龍傲天</div>
-        <div class="character" draggable="true" id="天行者">天行者</div>
-        <div class="character" draggable="true" id="雪莉">雪莉</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="烈焰狼">烈焰狼</div>
-        <div class="character" draggable="true" id="神秘術士">神秘術士</div>
-        <div class="character" draggable="true" id="劍聖">劍聖</div>
-        <div class="character" draggable="true" id="夜刃">夜刃</div>
-        <div class="character" draggable="true" id="雷霆女王">雷霆女王</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="暗影大師">暗影大師</div>
-        <div class="character" draggable="true" id="晨曦守護者">晨曦守護者</div>
-        <div class="character" draggable="true" id="冰封獵人">冰封獵人</div>
-        <div class="character" draggable="true" id="秘術弓箭手">秘術弓箭手</div>
-        <div class="character" draggable="true" id="天使之羽">天使之羽</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="黑魔導士">黑魔導士</div>
-        <div class="character" draggable="true" id="鋼鐵雄心">鋼鐵雄心</div>
-        <div class="character" draggable="true" id="聖光女武神">聖光女武神</div>
-        <div class="character" draggable="true" id="月光劍客">月光劍客</div>
-        <div class="character" draggable="true" id="烈火戰士">烈火戰士</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="碧海忍者">碧海忍者</div>
-        <div class="character" draggable="true" id="破碎者">破碎者</div>
-        <div class="character" draggable="true" id="魔法獵人">魔法獵人</div>
-        <div class="character" draggable="true" id="巫師領主">巫師領主</div>
-        <div class="character" draggable="true" id="霜火焰使">霜火焰使</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="神箭手">神箭手</div>
-        <div class="character" draggable="true" id="風暴之靈">風暴之靈</div>
-        <div class="character" draggable="true" id="戰歌領主">戰歌領主</div>
-        <div class="character" draggable="true" id="白狼">白狼</div>
-        <div class="character" draggable="true" id="天籟歌者">天籟歌者</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="破碎之心">破碎之心</div>
-        <div class="character" draggable="true" id="龍之勇者">龍之勇者</div>
-        <div class="character" draggable="true" id="魅影刺客">魅影刺客</div>
-        <div class="character" draggable="true" id="幻影之刃">幻影之刃</div>
-        <div class="character" draggable="true" id="雪狼領主">雪狼領主</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="疾風刺客">疾風刺客</div>
-        <div class="character" draggable="true" id="黑翼天使">黑翼天使</div>
-        <div class="character" draggable="true" id="暗月教主">暗月教主</div>
-        <div class="character" draggable="true" id="雷霆法師">雷霆法師</div>
-        <div class="character" draggable="true" id="銀月弓箭手">銀月弓箭手</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="星光守衛">星光守衛</div>
-        <div class="character" draggable="true" id="極寒法王">極寒法王</div>
-        <div class="character" draggable="true" id="燃燒之魂">燃燒之魂</div>
-        <div class="character" draggable="true" id="神龍武士">神龍武士</div>
-        <div class="character" draggable="true" id="元素使者">元素使者</div>
-    </div>
-    <div class="character-row">
-        <div class="character" draggable="true" id="火焰刺客">火焰刺客</div>
-        <div class="character" draggable="true" id="風之舞者">風之舞者</div>
-        <div class="character" draggable="true" id="暗黑騎士">暗黑騎士</div>
-        <div class="character" draggable="true" id="雪影魔女">雪影魔女</div>
-        <div class="character" draggable="true" id="雷霆巨獸">雷霆巨獸</div>
-    </div>
+        <div id="enemy-characters">
+              <?php
+              $count = 0;
+              foreach ($characters as $character) {
+                  if ($count % 5 === 0) echo '<div class="character-row">';
+                  echo "<div class='character' draggable='true' id='$character'>$character</div>";
+                  if ($count % 5 === 4) echo '</div>';
+                  $count++;
+              }
+              if ($count % 5 !== 0) echo '</div>'; // Close last row if not complete
+              ?>
+          </div>
+          <p style="border-bottom: 2px dotted; text-align: center;">拖曳角色到這裡來組成小隊</p>
+        <div id="enemy-team"></div>
       </div>
-      <p style="border-bottom: 2px dotted; text-align: center;">拖曳角色到這裡來組成小隊</p>
-      <div id="enemy-team"></div>
+   
     </div>
-  </div>
-  <div><button id="submitTeam">提交小隊</button></div>
+  <div><button id="submitTeam">提交小隊</button><a href="index.php" style='text-align:center'>回首頁</a></div>
+  
   
 
   <script>
@@ -291,8 +207,8 @@
 
       const enemyMembers = Array.from(enemyTeam.children)
         .filter(child => child.id) // 過濾掉非角色元素
-        .map(member => member.id); // 提取角色 ID
-
+        .map(member => member.id); // 提取角色 ID 
+      
       if (teamMembers.length < 5 || enemyMembers.length < 5) {
         alert('小隊尚未組成！');
         return;

@@ -8,7 +8,7 @@ if (isset($data['team']) && is_array($data['team']) && isset($data['enemyTeam'])
     // 獲取我方和敵方隊伍的成員
     $my_team = $data['team'];
     $enemy_team = $data['enemyTeam'];
-
+    echo $my_team ; 
     // 輸出我方和敵方的成員
     echo "\n我方成員是：" . implode(", ", $my_team);
     echo "\n敵方成員是：" . implode(", ", $enemy_team);
