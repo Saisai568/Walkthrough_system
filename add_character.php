@@ -26,15 +26,29 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $magicAtt = $_POST['MagicAtt'];
     $physiDef = $_POST['PhysiDef'];
     $magicDef = $_POST['MagicDef'];
-    $occupation = $_POST['Occupation'];
+    $occuptionid = $_POST['Occupation'];
+    $weaponid = $_POST['Weapon'];
+    // 武器設定
 
+    $sql = "SELECT WeaponMultiplier FROM weapon WHERE weaponId = $weaponid";
+
+    $result = $mydb->query($sql);
+
+    if ($result->num_rows > 0) {
+        // 輸出結果
+        $row = $result->fetch_assoc();
+        $itemmultipier = $row['WeaponMultiplier'];
+    } else {
+        echo "No weapon found with ID: $$weaponid";
+    }
+    $damage = ($physiAtt + $magicAtt) * $itemmultipier;
     // SQL 新增語句
-    $sql = "INSERT INTO charter (CharterName, LV, HP, MP, PhysiAtt, MagicAtt, PhysiDef, MagicDef, Occupation) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO charter (CharterName, LV, HP, MP, PhysiAtt, MagicAtt, PhysiDef, MagicDef, Damage, Occuptionid, Weaponid) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     // 預備語句防止 SQL 注入
     $stmt = $mydb->prepare($sql);
-    $stmt->bind_param("siiiiiiis", $charterName, $lv, $hp, $mp, $physiAtt, $magicAtt, $physiDef, $magicDef, $occupation);
+    $stmt->bind_param("siiiiiiiiii", $charterName, $lv, $hp, $mp, $physiAtt, $magicAtt, $physiDef, $magicDef, $damage, $occuptionid, $weaponid);
 
     // 執行新增資料
     if ($stmt->execute()) {

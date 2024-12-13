@@ -65,7 +65,7 @@
         }        
 
         // Fetch data from database
-        $sql = "SELECT ItemId, ItemName, ItemProper, Occupation FROM Item";
+        $sql = "SELECT ItemId, ItemName, ItemProper, Occuptionid FROM Item";
         $result = $mydb->query($sql);
 
         if ($result->num_rows > 0) {
@@ -73,7 +73,7 @@
             while($row = $result->fetch_assoc()) {
                 echo "<div class='card'>";
                 echo "<h3>" . htmlspecialchars($row["ItemName"]) . "</h3>";
-                echo "<p><strong>職業</strong>:" . htmlspecialchars($row["Occupation"]) . "</p>";
+                echo "<p><strong>職業</strong>:" . htmlspecialchars($row["Occuptionid"]) . "</p>";
                 echo "<p><strong>屬性</strong>: " . htmlspecialchars($row["ItemProper"]) . "</p>";
                 echo "</div>";
             }

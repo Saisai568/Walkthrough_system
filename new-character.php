@@ -82,11 +82,14 @@
                 
                 <label for="magicDef">魔法防禦：<input type="number" id="magicDef" name="MagicDef" required></label>
                 
-                <label for="occupation">職業：<input type="text" id="occupation" name="Occupation" maxlength="20" required></label>
+                <label for="occupation">職業ID：<input type="number" id="occupation" name="Occupation" maxlength="20" required></label>
 
+                <label for="weapon">武器ID：<input type="number" id="weapon" name="Weapon" maxlength="20" required></label>
+                
                 <button type="submit">新增</button>
                 <div class="switch">
                 <a href="#" onclick="switchToItem()">新增道具</a>
+                <a href="#" onclick="switchToWeapon()">新增武器</a>
                 </div>
                 <a href="index.php" style='text-align:center'>回首頁</a>
             </form>
@@ -97,16 +100,31 @@
                 <label for="name">道具名稱：<input type="text" id="name" name="ItemName" maxlength="20" required></label>
                 <label for="occaption" required>可用職業：</label>
                     <select id="occaption" name="Occaption">
-                        <option value="戰士">戰士</option>
-                        <option value="法師">法師</option>
-                        <option value="坦克">坦克</option>
-                        <option value="刺客">刺客</option>
+                        <option value="1">戰士</option>
+                        <option value="2">法師</option>
+                        <option value="3">坦克</option>
+                        <option value="4">刺客</option>
                     </select>
                 <label for="proper">道具屬性：<input type="text" id="proper" name="ItemProper" maxlength="20" required></label>
                 <button type="submit">新增</button>
             </form>
+            
             <div class="switch">
                 <a href="#" onclick="switchToCharacter()">新增角色</a>
+                <a href="#" onclick="switchToWeapon()">新增武器</a>
+            </div>
+            <a href="index.php" style='text-align:center'>回首頁</a>
+        </div>
+        <div id="newweapon-form"  style="display: none;">
+            <h2>新增武器</h2>
+            <form action="add_weapon.php" method="POST">
+                <label for="name">武器名稱：<input type="text" id="name" name="WeaponName" maxlength="20" required></label>
+                <label for="Multiplier">武器加成：<input type="text" id="Multiplier" name="WeaponMultiplier" maxlength="20" required></label>
+                <button type="submit">新增</button>
+            </form>
+            <div class="switch">
+                <a href="#" onclick="switchToCharacter()">新增角色</a>
+                <a href="#" onclick="switchToItem()">新增道具</a>
             </div>
             <a href="index.php" style='text-align:center'>回首頁</a>
         </div>
@@ -114,12 +132,19 @@
     <script>
         function switchToItem() {
             document.getElementById('newcharacter-form').style.display = 'none';
+            document.getElementById('newweapon-form').style.display = 'none';
             document.getElementById('newitem-form').style.display = 'block';
         }
 
         function switchToCharacter() {
             document.getElementById('newitem-form').style.display = 'none';
+            document.getElementById('newweapon-form').style.display = 'none';
             document.getElementById('newcharacter-form').style.display = 'block';
+        }
+        function switchToWeapon() {
+            document.getElementById('newcharacter-form').style.display = 'none';
+            document.getElementById('newitem-form').style.display = 'none';
+            document.getElementById('newweapon-form').style.display = 'block';
         }
     </script>
 </body>

@@ -40,8 +40,6 @@ try {
               CONCAT(enemy_character_1_id, ',', enemy_character_2_id, ',', enemy_character_3_id, ',', enemy_character_4_id, ',', enemy_character_5_id) AS enemyCharacters
               FROM Record WHERE 1=1";
     $params = [];
-    // echo $input['character'],$input['player'],$input['time'];
-    // 大概是這裡
     
     if (isset($input['character']) && !empty($input['character'])) {
         $query .= " AND (

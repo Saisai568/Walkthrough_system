@@ -182,7 +182,7 @@
 <body>
     <div class="container">
         <div class="main-content">
-            <h1>我的資料</h1>
+            <h1>戰鬥紀錄</h1>
             <div class="card record">
                 <h3>Card Title</h3>
                 <p>Card description goes here.</p>

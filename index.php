@@ -106,8 +106,8 @@
             </div>
             <div class="card">
                 <img src="img/warrior.png"/>
-                <h3>角色登場率</h3>
-                <a href="characterpercent.php">進入</a>
+                <h3>交叉查詢</h3>
+                <a href="crossfind.php">進入</a>
             </div>
         </div>
         <div>
@@ -117,23 +117,17 @@
                 <a href="itemintro.php">進入</a>
             </div>
             <div class="card">
-                <img src="img/numbers.png"/>
-                <h3>角色數值計算器</h3>
-                <a href="charactercal.php">進入</a>
-            </div>
-            <div class="card">
                 <img src="img/witch.png"/>
                 <h3>新增角色/道具</h3>
                 <a href="new-character.php">進入</a>
             </div>
-        </div>
-        <div>
             <div class="card">
                 <img src="img/user.png"/>
                 <h3>我的資料</h3>
                 <a href="mydata.php">進入</a>
             </div>
         </div>
+
         
     </main>
 </body>
