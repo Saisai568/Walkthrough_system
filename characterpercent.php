@@ -57,7 +57,20 @@
             margin-top: 20px;
             font-size: 18px;
         }
+        /* 置中的 div */
+        .centered-div {
+            width: 300px;
+            height: 200px;
+            background-color: #FFFFFF;
+            color: white;
+            display: flex;
+            justify-content: center; /* 內容水平置中 */
+            align-items: center; /* 內容垂直置中 */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -72,6 +85,9 @@
             </form>
             <div id="result" class="result"></div>
         </div>
+        <div style="width: 50%; margin: auto;" class="centered-div">
+        <canvas id="myChart"></canvas>
+    </div>
     </main>
 
     <script>
@@ -103,6 +119,46 @@
                 document.getElementById('result').innerHTML = '<p style="color: red;">發生錯誤，請稍後再試。</p>';
             });
         }
+    </script>
+    <script>
+        // 取得畫布元素
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // 建立圖表
+        const myChart = new Chart(ctx, {
+            type: 'bar', // 圖表類型：柱狀圖
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'], // X軸標籤
+                datasets: [{
+                    label: 'Sample Dataset', // 資料集標籤
+                    data: [12, 19, 3, 5, 2, 3], // 資料
+                    backgroundColor: [ // 每個柱子的顏色
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [ // 每個柱子的邊框顏色
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1 // 邊框寬度
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true // Y軸從 0 開始
+                    }
+                }
+            }
+        });
     </script>
 </body>
 </html>
