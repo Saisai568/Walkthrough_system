@@ -42,11 +42,13 @@ try {
     $params = [];
     // echo $input['character'],$input['player'],$input['time'];
     // 大概是這裡
+    
     if (isset($input['character']) && !empty($input['character'])) {
         $query .= " AND (
             FIND_IN_SET(:character, CONCAT(ally_character_1_id, ',', ally_character_2_id, ',', ally_character_3_id, ',', ally_character_4_id, ',', ally_character_5_id)) > 0
             OR FIND_IN_SET(:character, CONCAT(enemy_character_1_id, ',', enemy_character_2_id, ',', enemy_character_3_id, ',', enemy_character_4_id, ',', enemy_character_5_id)) > 0
         )";
+        
         $params[':character'] = $input['character'];
     }
     
@@ -62,7 +64,7 @@ try {
             $query .= " AND created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)";
         }
     }
-
+   
 
     $stmt = $pdo->prepare($query);
     $stmt->execute($params);

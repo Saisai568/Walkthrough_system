@@ -96,12 +96,7 @@
     <main>
         <form class="filter-form">
             <label for="character">Character:</label>
-            <select id="character" name="character">
-                <option value="">--Select Character--</option>
-                <option value="1">Character 1</option>
-                <option value="2">Character 2</option>
-                <option value="3">Character 3</option>
-            </select>
+            <input type="text" id="character" name="character">
 
             <label for="player">Player Name:</label>
             <input type="text" id="player" name="player">

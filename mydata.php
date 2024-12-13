@@ -44,9 +44,91 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #333;
+            color: white;
+            display: block;
+            justify-content: flex-start;
+            text-align: right;
+        }
+
+        nav a {
+            background: #333;
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+        }
+
+        .main-content {
+            width: 75%;
+            padding: 20px;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .sidebar {
+            width: 25%;
+            padding: 20px;
+            background-color: #ccc;
+            text-align: center;
+        }
+
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            width: 1050px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .card a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .card a:hover {
+            background-color: #45a049;
         }
         .profile-container {
             max-width: 600px;
@@ -98,11 +180,23 @@
     </script>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>歡迎, <?php echo htmlspecialchars($user['UserName'], ENT_QUOTES, 'UTF-8'); ?>!</h1>
-        <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?></p>
-        <p><strong>暱稱:</strong> <?php echo htmlspecialchars($user['Nickname'], ENT_QUOTES, 'UTF-8'); ?></p>
-        <a href="#" class="logout" onclick="logout()">登出</a>
+    <div class="container">
+        <div class="main-content">
+            <h1>我的資料</h1>
+            <div class="card record">
+                <h3>Card Title</h3>
+                <p>Card description goes here.</p>
+                <a href="#">Read More</a>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="profile-container">
+                <h1>歡迎, <?php echo htmlspecialchars($user['UserName'], ENT_QUOTES, 'UTF-8'); ?>!</h1>
+                <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?></p>
+                <p><strong>暱稱:</strong> <?php echo htmlspecialchars($user['Nickname'], ENT_QUOTES, 'UTF-8'); ?></p>
+                <a href="#" class="logout" onclick="logout()">登出</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>
