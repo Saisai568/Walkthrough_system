@@ -1,21 +1,5 @@
 <?php
-header("Content-Type: text/html; charset=utf-8");
-
-
-$db_server = "localhost";
-$db_user = "root";
-$db_password = "";
-$db_name = "Walkthrough_system";
-
-$mydb = new mysqli($db_server, $db_user, $db_password, $db_name);
-
-if ($mydb->connect_error) {
-    die("連接失敗 " . $mydb->connect_error);
-}
-
-if (!$mydb->set_charset("utf8mb4")) {
-    die("設置字體失敗: " . $mydb->error);
-}
+require "load.php";
 
 
 ini_set('display_errors', 1);
@@ -43,8 +27,8 @@ try {
     
     if (isset($input['character']) && !empty($input['character'])) {
         $query .= " AND (
-            FIND_IN_SET(:character, CONCAT(ally_character_1_id, ',', ally_character_2_id, ',', ally_character_3_id, ',', ally_character_4_id, ',', ally_character_5_id)) > 0
-            OR FIND_IN_SET(:character, CONCAT(enemy_character_1_id, ',', enemy_character_2_id, ',', enemy_character_3_id, ',', enemy_character_4_id, ',', enemy_character_5_id)) > 0
+            FIND_IN_SET((SELECT charterid FROM charter WHERE CharterName LIKE :character), CONCAT(ally_character_1_id, ',', ally_character_2_id, ',', ally_character_3_id, ',', ally_character_4_id, ',', ally_character_5_id)) > 0
+            OR FIND_IN_SET((SELECT charterid FROM charter WHERE CharterName LIKE :character), CONCAT(enemy_character_1_id, ',', enemy_character_2_id, ',', enemy_character_3_id, ',', enemy_character_4_id, ',', enemy_character_5_id)) > 0
         )";
         
         $params[':character'] = $input['character'];

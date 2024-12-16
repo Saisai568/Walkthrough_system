@@ -118,10 +118,17 @@
             </div>
             <div class="card">
                 <img src="img/witch.png"/>
-                <h3>新增角色/道具</h3>
-                <a href="new-character.php">進入</a>
+                <h3>新增角色/道具/武器</h3>
+                <a href="new_stuff.php">進入</a>
             </div>
             <div class="card">
+                <img src="img/user.png"/>
+                <h3>修改/刪除角色/道具/武器</h3>
+                <a href="manage_stuff.php">進入</a>
+            </div>
+        </div>
+        <div>
+        <div class="card">
                 <img src="img/user.png"/>
                 <h3>我的資料</h3>
                 <a href="mydata.php">進入</a>

@@ -82,7 +82,13 @@
                 
                 <label for="magicDef">魔法防禦：<input type="number" id="magicDef" name="MagicDef" required></label>
                 
-                <label for="occupation">職業ID：<input type="number" id="occupation" name="Occupation" maxlength="20" required></label>
+                <label for="occupationname" required>職業：</label>
+                    <select id="occupation" name="Occupationname">
+                        <option value="1">戰士</option>
+                        <option value="2">法師</option>
+                        <option value="3">坦克</option>
+                        <option value="4">刺客</option>
+                    </select>
 
                 <label for="weapon">武器ID：<input type="number" id="weapon" name="Weapon" maxlength="20" required></label>
                 

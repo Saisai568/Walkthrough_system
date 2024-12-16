@@ -1,20 +1,5 @@
 <?php
-header("Content-Type: text/html; charset=utf-8");
-
-$db_server = "localhost";
-$db_user = "root";
-$db_password = "";
-$db_name = "Walkthrough_system";
-
-$mydb = new mysqli($db_server, $db_user, $db_password, $db_name);
-
-if ($mydb->connect_error) {
-    die("連接失敗 " . $mydb->connect_error);
-}
-
-if (!$mydb->set_charset("utf8mb4")) {
-    die("設置字體失敗: " . $mydb->error);
-}
+require "load.php";
 
 try {
     $pdo = new PDO("mysql:host=$db_server;dbname=$db_name;charset=utf8", $db_user, $db_password);
@@ -39,7 +24,7 @@ try {
             $charid = $row["CharterId"];
         }
     } else {
-        echo "未找到对应的CharterId";
+        echo "未找到對應的CharterId";
     }
     // Prepare the SQL statement with a placeholder
     $stmt = $pdo->prepare("SELECT 

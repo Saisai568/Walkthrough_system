@@ -38,31 +38,33 @@
         .card p {
             color: #555;
         }
+        nav {
+            background: #333;
+            color: white;
+            text-align: right;
+            padding: 5px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>道具介紹</h1>
     </header>
+    <nav>
+        <a href="index.php">回首頁</a>
+    </nav>
     <main>
         <?php
-        header("Content-Type: text/html; charset=utf-8");
-
-
-        $db_server = "localhost";
-        $db_user = "root";
-        $db_password = "";
-        $db_name = "Walkthrough_system";
-        
-        $mydb = new mysqli($db_server, $db_user, $db_password, $db_name);
-        
-        if ($mydb->connect_error) {
-            die("連接失敗 " . $mydb->connect_error);
-        }
-        
-        if (!$mydb->set_charset("utf8mb4")) {
-            die("設置字體失敗: " . $mydb->error);
-        }        
+        require "load.php";       
 
         // Fetch data from database
         $sql = "SELECT ItemId, ItemName, ItemProper, Occuptionid FROM Item";
@@ -80,7 +82,6 @@
         } else {
             echo "<p>No items found</p>";
         }
-
         $mydb->close();
         ?>
     </main>

@@ -30,6 +30,21 @@
             padding: 20px;
             max-width: 600px;
         }
+        nav {
+            background: #333;
+            color: white;
+            text-align: right;
+            padding: 5px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
         .filter-form {
             margin-bottom: 20px;
             text-align: center;
@@ -75,6 +90,9 @@
     <header>
         <h1>交叉查詢</h1>
     </header>
+    <nav>
+        <a href="index.php">回首頁</a>
+    </nav>
     <main>
         <div class="card">
             <form class="filter-form" id="queryForm">
@@ -102,7 +120,7 @@
         <div class="card">
             <form class="filter-form" id="queryForm">
                 <h3>使用過的角色</h3>
-                <label for="username">：</label>
+                <label for="username">使用者名稱：</label>
                 <input type="text" id="username" name="username" required>
                 <button type="button" onclick="fetchUserData()">查詢</button>
             </form>
@@ -118,7 +136,7 @@
         </div>
         <div class="card">
             <form class="filter-form" id="queryForm">
-                <h3>物品與職業</h3>
+                <h3>職業與物品數量</h3>
                 <label for="itemoccu"></label>
                 <button type="button" onclick="fetchItemOccuData()">查詢</button>
             </form>

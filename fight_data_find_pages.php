@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Battle Record Query</title>
+    <title>戰鬥紀錄查詢</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -145,7 +146,8 @@
                         card.innerHTML = `
                             <h3>紀錄： #${record.Recordid}</h3>
                             <p>使用者： ${record.playerName}</p>
-                            <p>角色ID： ${record.allyCharacters}, ${record.enemyCharacters}</p>
+                            <p>我方角色ID： ${record.allyCharacters}</p>
+                            <p>敵方角色ID： ${record.enemyCharacters}</p>
                             <p>創建日期/時間: ${record.created_at}</p>
                             <a href="#">更多</a>
                         `;

@@ -1,19 +1,6 @@
 <?php
-    // header("Content-Type: text/html; charset=utf-8");
-    $db_server = "localhost";
-    $db_user = "root";
-    $db_password = "";
-    $db_name = "Walkthrough_system";
+    require "load.php";
     
-    $mydb = new mysqli($db_server, $db_user, $db_password, $db_name);
-    
-    if ($mydb->connect_error) {
-        die("連接失敗 " . $mydb->connect_error);
-    }
-    
-    if (!$mydb->set_charset("utf8mb4")) {
-        die("設置字體失敗: " . $mydb->error);
-    }
     session_start();
 
     // Check if the user is logged in
@@ -162,7 +149,7 @@
         .card a:hover {
             background-color: #45a049;
         }
-            
+
         .profile-container {
             max-width: 600px;
             margin: 50px auto;
