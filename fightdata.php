@@ -108,7 +108,7 @@
                 <option value="month">一月內</option>
             </select>
 
-            <button type="button" onclick="searchRecords()"></button>
+            <button type="button" onclick="searchRecords()">查詢</button>
         </form>
 
         <div id="records">

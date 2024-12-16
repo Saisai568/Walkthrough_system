@@ -1,5 +1,19 @@
 <?php
-    require "load.php";
+    // header("Content-Type: text/html; charset=utf-8");
+    $db_server = "localhost";
+    $db_user = "root";
+    $db_password = "";
+    $db_name = "Walkthrough_system";
+    
+    $mydb = new mysqli($db_server, $db_user, $db_password, $db_name);
+    
+    if ($mydb->connect_error) {
+        die("連接失敗 " . $mydb->connect_error);
+    }
+    
+    if (!$mydb->set_charset("utf8mb4")) {
+        die("設置字體失敗: " . $mydb->error);
+    }
     session_start();
 
     // Check if the user is logged in
@@ -32,8 +46,21 @@
 
     $stmt->close();
     $mydb->close();
-?>
 
+    
+    try {
+        $pdo = new PDO("mysql:host=$db_server;dbname=$db_name", $db_user, $db_password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Fetch characters
+        $stmt = $pdo->query("SELECT CharterName FROM charter");
+        $characters = $stmt->fetchAll(PDO::FETCH_COLUMN);
+        $stmt = $pdo->query("SELECT CharterId  FROM charter");
+        $charactersid = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    } catch (PDOException $e) {
+        die("Database error: " . $e->getMessage());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,10 +118,15 @@
 
         .sidebar {
             width: 25%;
+            height: 100vh; /* 高度設置為視窗高度 */
             padding: 20px;
             background-color: #ccc;
             text-align: center;
+            position: fixed; /* 固定在頁面左側 */
+            top: 0;
+            right: 0;
         }
+
 
         main {
             padding: 20px;
@@ -108,8 +140,8 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             display: inline-block;
             margin: 10px;
-            padding: 20px;
-            width: 1050px;
+            padding: 10px;
+            width: 950px;
         }
 
         .card h3 {
@@ -130,6 +162,7 @@
         .card a:hover {
             background-color: #45a049;
         }
+            
         .profile-container {
             max-width: 600px;
             margin: 50px auto;
@@ -177,16 +210,50 @@
                     console.error("登出過程中發生錯誤:", error);
                 });
         }
+        
     </script>
 </head>
 <body>
     <div class="container">
         <div class="main-content">
             <h1>戰鬥紀錄</h1>
-            <div class="card record">
-                <h3>Card Title</h3>
-                <p>Card description goes here.</p>
-                <a href="#">Read More</a>
+            <div class="records">
+            <?php
+            
+
+            // 確保使用 PDO 查詢資料庫
+            $sql = "SELECT Recordid, player_id, created_at, 
+                        CONCAT(ally_character_1_id, ',', ally_character_2_id, ',', ally_character_3_id, ',', ally_character_4_id, ',', ally_character_5_id) AS allyCharacters,
+                        CONCAT(enemy_character_1_id, ',', enemy_character_2_id, ',', enemy_character_3_id, ',', enemy_character_4_id, ',', enemy_character_5_id) AS enemyCharacters
+                    FROM Record 
+                    WHERE player_id = :player_id";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([':player_id' => $user["UserId"]]); // 綁定參數，使用 PDO 方法
+
+            $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // 處理紀錄資料
+            foreach ($records as &$record) {
+                $playerStmt = $pdo->prepare("SELECT username FROM user WHERE userid = :player_id");
+                $playerStmt->execute([':player_id' => $record['player_id']]);
+                $record['playerName'] = $playerStmt->fetchColumn() ?: 'Unknown';
+            }
+
+            // 檢查紀錄是否存在
+            if (!empty($records)) {
+                foreach ($records as $row) {
+                    echo "<div class='card'>";
+                    echo "<h3>" . htmlspecialchars($row["Recordid"], ENT_QUOTES, 'UTF-8') . "</h3>";
+                    echo "<p><strong>建立時間:</strong> " . htmlspecialchars($row["created_at"], ENT_QUOTES, 'UTF-8') . "</p>";
+                    echo "<p><strong>隊伍:</strong> " . htmlspecialchars($row["allyCharacters"], ENT_QUOTES, 'UTF-8') . "</p>";
+                    echo "<p><strong>敵人:</strong> " . htmlspecialchars($row["enemyCharacters"], ENT_QUOTES, 'UTF-8') . "</p>";
+                    echo "</div>";
+                }
+            } else {
+                echo "<p>目前沒有紀錄。</p>";
+            }
+            ?>
             </div>
         </div>
         <div class="sidebar">
