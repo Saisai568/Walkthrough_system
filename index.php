@@ -102,7 +102,7 @@
             <div class="card">
                 <img src="img/swords.png"/>
                 <h3>競技場對戰查詢</h3>
-                <a href="fightdata.php">進入</a>
+                <a href="fight_data_find_pages.php">進入</a>
             </div>
             <div class="card">
                 <img src="img/warrior.png"/>
